@@ -36,6 +36,39 @@ function high(inputString){
 }
 
 
+// O(n) time complexity solution
+
+function high(inputString){
+
+  const word = {
+    point: 0,
+    s: ""
+  }
+  
+  let tmpPoints = 0;
+  let tmpString = ""
+  
+  for(let i=0; i < inputString.length; i++) {
+    // skip the [space] char
+    if(inputString.charCodeAt(i) == 32) {
+      tmpPoints = 0;
+      tmpString = ""
+      continue;
+    }
+      
+    tmpPoints = tmpPoints + inputString.charCodeAt(i) - 96;
+    tmpString += inputString[i];
+    
+    if(tmpPoints > word.point) {
+      word.s = tmpString;
+      word.point = tmpPoints;      
+    }
+  }
+  return word.s;
+}
+
+
+
 // tests
 
 const chai = require("chai");

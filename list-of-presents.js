@@ -20,12 +20,9 @@ function howManyGifts(maxBudget, gifts){
   gifts.sort((a, b) => a - b);
   
   let totalGifts = 0;
-  console.log(gifts);
   while((maxBudget - gifts[totalGifts]) >= 0) {
     maxBudget -= gifts[totalGifts];
     totalGifts++;
-    console.log(maxBudget);
-    console.log(totalGifts);
   } 
   
   return totalGifts;

@@ -44,34 +44,23 @@ function formatDuration (seconds) {
   
   const readableTime = new Map();
   
-  while(seconds !== 0) {
-    for(let i=0; i < secondsMap.length; i++) {
-      if(seconds >= secondsMap[i].value) {
-        if(secondsMap[i + 1] && seconds < secondsMap[i + 1].value) {
-          readableTime.set(
-            secondsMap[i].name,
-            readableTime.get(secondsMap[i].name) > 0 ? readableTime.get(secondsMap[i].name) + 1 : 1
-          );
-          seconds = seconds - secondsMap[i].value;
-        }
-        if(i === (secondsMap.size - 1)) {
-           readableTime.set(
-            secondsMap[i].name,
-            readableTime.get(secondsMap[i].name) > 0 ? readableTime.get(secondsMap[i].name) + 1 : 1
-          );
-          seconds = seconds - secondsMap[i].value;
-        }
-      } else if(seconds < 60){
-        readableTime.set("second", seconds);
-        seconds = 0;
-        break;
-      }
+  for(let i=secondsMap.length -1; i >= 0; i--) {
+    if(seconds >= secondsMap[i].value) {
+      while(seconds >= secondsMap[i].value) {
+        readableTime.set(
+          secondsMap[i].name,
+          readableTime.get(secondsMap[i].name) > 0 ? readableTime.get(secondsMap[i].name) + 1 : 1
+        );
+        seconds = seconds - secondsMap[i].value;
+      } 
     }
   }
-    
+  
+  if(seconds !== 0)
+    readableTime.set("second", seconds);
+  
   let result = "";
   const keys = Array.from(readableTime.keys());
-  
   for(let i=0; i<keys.length; i++) {
     const value = readableTime.get(keys[i]);
     if(value === 0)
@@ -89,6 +78,7 @@ function formatDuration (seconds) {
   
   return result;
 }
+
 
 // tests
 

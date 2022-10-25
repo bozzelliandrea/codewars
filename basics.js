@@ -51,3 +51,11 @@ describe("Basic tests", () => {
     })
   })
 
+// Remove vowels from string
+
+function disemvowel(str) {
+  return str.replace(/[aAeEiIoOuU]/g, '');
+}
+
+
+

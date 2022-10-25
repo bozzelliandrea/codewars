@@ -22,6 +22,12 @@ function sortArray(array) {
   return array;
 }
 
+const lambda = (array) => {
+  const odd = array.filter(elem => elem % 2 !== 0).sort((a, b) => a - b);
+  return array.map(elem => elem % 2 === 0 ? elem : odd.shift());
+}
+
+
 // tests
 const chai = require("chai");
 const assert = chai.assert;

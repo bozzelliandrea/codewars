@@ -97,5 +97,78 @@ describe("Basic tests", () => {
   });
 });
 
+// reverse array
+// Write a function reverse which reverses a list (or in clojure's case, any list-like data structure)
+
+reverse = function(array) {
+  let tmp;
+  for(let i=0, j=array.length-1; i<array.length/2; i++, j--) {
+    tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+  return array
+}
+
+// tests
+
+const chai = require("chai");
+const assert = chai.assert;
+chai.config.truncateThreshold=0;
+
+describe("Tests", () => {
+  it("test", () => {
+    assert.deepEqual( reverse([1,2,3]), [3,2,1] )
+    assert.deepEqual( reverse([1,null,14,"two"]), ["two",14,null,1] )
+  });
+});
+
+describe("Random test with native reverse disabled", () => {
+  
+  const myReverse = Array.prototype.reverse;
+
+  function randIntArray() {
+    let res = [Math.floor(Math.random()*999) + 1];
+    while (Math.random() < 0.75) res.push( Math.floor(Math.random()*999) + 1);
+    return res;
+  }
+
+  function randStrArray() {
+    let res = ["abcDe1fgHijkLmnO72rstuVwxyZ"[Math.floor(Math.random()*30)]];
+    while (Math.random() < 0.75) res.push( "aBc9DefgHi16jknOpqrstuV0wXyz"[Math.floor(Math.random()*30)]);
+    return res;
+  }
+  
+  function beforeTests() {
+    Array.prototype.reverse = () => { throw Error("Oh, no you don't!") }
+  }
+  
+  function afterTests() {
+    Array.prototype.reverse = myReverse;
+  }
+
+  // TESTS:
+  for (let i=0; i<25; i++) {
+    let test = randIntArray();
+    let exp=test.reduce( function(a,b){ return [b].concat(a) }, [])
+    it(`Testing with: [${test.join(", ")}]`, () => {
+      beforeTests()
+      assert.deepEqual( reverse(test) , exp);
+      afterTests()
+    });  
+  }
+
+  for (let i=0; i<25; i++) {
+    let test = randStrArray();
+    let exp=test.reduce( function(a,b){ return [b].concat(a) }, [])
+    it(`Testing with: [${test.join(", ")}]`, () => {
+      beforeTests()
+      assert.deepEqual( reverse(test) , exp);
+      afterTests()
+    });  
+  }
+
+});
+
 
 

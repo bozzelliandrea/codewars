@@ -67,8 +67,18 @@ If a value is present in b, all of its occurrences must be removed from the othe
 
 arrayDiff([1,2,2,2,3],[2]) == [1,3]
 */
+
+// slow solution
+// TC:  O(n)^2
 function arrayDiff(a, b) {
   return a.filter(n => !b.includes(n));  
+}
+
+// efficient
+// TC: O(a + b) -> b[] to Set<B> is O(b), than a 0(n) time for a based on a[] size.
+function array_diff(a, b) {
+  const b_set = new Set(b)
+  return a.filter(e => !b_set.has(e));
 }
 
 // tests

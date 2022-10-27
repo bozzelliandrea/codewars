@@ -3,6 +3,11 @@
 
 const numberToString = (num) => num + ""
 
+// Remove First and Last Character
+
+const removeChar = (str) => str.substring(1, str.length - 1);
+
+
 /*
 Complete the solution so that it returns true if the first argument(string) passed in ends with the 2nd argument (also a string).
 

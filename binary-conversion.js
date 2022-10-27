@@ -25,6 +25,10 @@ const binaryArrayToNumber = arr => {
   return total;
 };
 
+// native js
+
+const binaryArrayToNumber = arr => parseInt(arr.join(''), 2);
+
 // tests
 
 const Test = require('@codewars/test-compat');
